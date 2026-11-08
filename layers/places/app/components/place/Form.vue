@@ -8,7 +8,7 @@ const props = withDefaults(
     initial?: PlaceInput
     submitLabel?: string
   }>(),
-  { submitLabel: 'Сохранить' },
+  { initial: undefined, submitLabel: 'Сохранить' },
 )
 
 const emit = defineEmits<{
