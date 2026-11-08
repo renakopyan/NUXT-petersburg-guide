@@ -19,7 +19,7 @@ const visiblePlaces = computed(() =>
   <section :id="category.value" class="section">
     <header class="section__header">
       <h2 class="section__title">
-        <span aria-hidden="true">{{ category.emoji }}</span>
+        <span class="section__emoji" aria-hidden="true">{{ category.emoji }}</span>
         {{ category.title }}
         <span class="section__count">{{ visiblePlaces.length }}</span>
       </h2>
@@ -42,48 +42,65 @@ const visiblePlaces = computed(() =>
 
 <style scoped>
 .section {
-  scroll-margin-top: 88px;
+  scroll-margin-top: 96px;
 }
 
 .section + .section {
-  margin-top: 56px;
+  margin-top: 72px;
 }
 
 .section__header {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .section__title {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 24px;
-  font-weight: 700;
+  align-items: baseline;
+  gap: 14px;
+  font-size: clamp(34px, 4vw, 44px);
+  line-height: 1;
+}
+
+.section__emoji {
+  font-size: 0.7em;
 }
 
 .section__count {
-  padding: 0 10px;
-  border-radius: 999px;
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  font-family: var(--font-body);
   font-size: 14px;
-  font-weight: 600;
-  line-height: 26px;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
 .section__filter {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
   font-size: 14px;
-  font-weight: 500;
-  color: var(--color-work);
+  font-weight: 600;
+  color: var(--color-muted);
   cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.section__filter:hover {
+  color: var(--color-text);
+}
+
+.section__filter:has(input:checked) {
+  border-color: rgb(115 214 171 / 0.5);
+  background: var(--color-work-soft);
+  color: var(--color-work);
 }
 
 .section__filter input {
@@ -94,15 +111,18 @@ const visiblePlaces = computed(() =>
 
 .section__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .section__empty {
-  padding: 32px;
-  border: 1px dashed var(--color-border);
+  padding: 48px 32px;
+  border: 1px dashed var(--color-border-strong);
   border-radius: var(--radius);
   text-align: center;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
   color: var(--color-muted);
 }
 </style>

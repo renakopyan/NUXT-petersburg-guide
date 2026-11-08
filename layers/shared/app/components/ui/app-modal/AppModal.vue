@@ -65,12 +65,14 @@ onBeforeUnmount(() => toggleListeners(false))
   padding: 48px 16px;
   overflow-y: auto;
   background: var(--color-backdrop);
+  backdrop-filter: blur(4px);
 }
 
 .modal__dialog {
   width: 100%;
-  max-width: 560px;
+  max-width: 580px;
   background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius);
   box-shadow: var(--shadow-hover);
 }
@@ -79,13 +81,14 @@ onBeforeUnmount(() => toggleListeners(false))
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
+  padding: 22px 28px;
   border-bottom: 1px solid var(--color-border);
 }
 
 .modal__title {
-  font-size: 20px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1;
 }
 
 .modal__close {
@@ -101,12 +104,12 @@ onBeforeUnmount(() => toggleListeners(false))
 }
 
 .modal__close:hover {
-  background: var(--color-bg);
+  background: var(--color-surface-raised);
   color: var(--color-text);
 }
 
 .modal__body {
-  padding: 24px;
+  padding: 24px 28px 28px;
 }
 
 .modal-enter-active,

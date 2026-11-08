@@ -1,4 +1,4 @@
-import type { Place, PlaceInput } from '@layers/places/app/types/place'
+import type { Place, PlaceComment, PlaceCommentInput, PlaceInput } from '@layers/places/app/types/place'
 
 // Демо-данные, пока не подключено хранилище.
 // Когда появится API, здесь заменится только источник данных:
@@ -10,10 +10,18 @@ const createDemoPlaces = (): Place[] => [
     name: 'Кофейня у Фонтанки',
     description: 'Отличный фильтр и тыквенный раф. Большие столы у окна, спокойная музыка.',
     address: 'наб. реки Фонтанки, 1',
+    coords: { lat: 59.9428, lng: 30.3377 },
     photos: [],
     tags: ['фильтр', 'десерты'],
     workFriendly: { wifi: true, sockets: true, quiet: true },
-    comments: [],
+    comments: [
+      {
+        id: 'demo-comment-1',
+        author: 'Аня',
+        text: 'Брали раф и чизкейк — вернёмся. Днём в будни почти пусто, идеально для работы.',
+        createdAt: '2026-11-01T12:30:00.000Z',
+      },
+    ],
     createdAt: '2026-11-01T10:00:00.000Z',
     updatedAt: '2026-11-01T10:00:00.000Z',
   },
@@ -23,6 +31,7 @@ const createDemoPlaces = (): Place[] => [
     name: 'Маленькая обжарка',
     description: 'Крошечное место на пару столиков, но лучший эспрессо в районе.',
     address: 'ул. Рубинштейна, 2',
+    coords: { lat: 59.9318, lng: 30.3455 },
     photos: [],
     tags: ['эспрессо', 'с собой'],
     comments: [],
@@ -35,6 +44,7 @@ const createDemoPlaces = (): Place[] => [
     name: 'Северная кухня',
     description: 'Корюшка, щи и пироги. Брали сет на компанию — всем понравилось.',
     address: 'Невский пр., 3',
+    coords: { lat: 59.9370, lng: 30.3133 },
     photos: [],
     tags: ['русская кухня', 'для компании'],
     comments: [],
@@ -47,6 +57,7 @@ const createDemoPlaces = (): Place[] => [
     name: 'Бар на крыше',
     description: 'Авторские коктейли и вид на крыши. Лучше бронировать на вечер пятницы.',
     address: 'ул. Ломоносова, 4',
+    coords: { lat: 59.9297, lng: 30.3331 },
     photos: [],
     tags: ['коктейли', 'вид', 'бронь'],
     comments: [],
@@ -75,5 +86,27 @@ export function usePlaces() {
     return computed(() => places.value.find((place) => place.id === id))
   }
 
-  return { places, addPlace, getPlace }
+  /** Заменяет заведение по id, возвращая новый объект (для реактивности). */
+  function patchPlace(id: string, patch: (place: Place) => Partial<Place>) {
+    places.value = places.value.map((place) =>
+      place.id === id
+        ? { ...place, ...patch(place), updatedAt: new Date().toISOString() }
+        : place,
+    )
+  }
+
+  function updatePlace(id: string, input: PlaceInput) {
+    patchPlace(id, () => input)
+  }
+
+  function addComment(id: string, input: PlaceCommentInput) {
+    const comment: PlaceComment = {
+      ...input,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+    }
+    patchPlace(id, (place) => ({ comments: [...place.comments, comment] }))
+  }
+
+  return { places, addPlace, getPlace, updatePlace, addComment }
 }

@@ -18,9 +18,10 @@ const sections = computed(() =>
   <div class="container home">
     <section class="home__hero">
       <div>
-        <h1 class="home__title">Наши проверенные места</h1>
+        <p class="home__eyebrow">Санкт‑Петербург · личный гид</p>
+        <h1 class="home__title">Наши <em>проверенные</em> места</h1>
         <p class="home__subtitle">
-          Кофейни, рестораны и бары Петербурга, где мы уже были и куда хочется вернуться.
+          Кофейни, рестораны и бары, где мы уже были и куда хочется вернуться.
         </p>
       </div>
 
@@ -51,47 +52,72 @@ const sections = computed(() =>
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 28px;
+  gap: 32px;
+  padding: 32px 0 40px;
+}
+
+.home__eyebrow {
+  margin-bottom: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
 .home__title {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 700;
-  line-height: 1.15;
+  max-width: 760px;
+  font-size: clamp(44px, 7vw, 84px);
+  font-weight: 600;
+  line-height: 0.95;
+}
+
+.home__title em {
+  font-style: italic;
+  color: var(--color-accent);
 }
 
 .home__subtitle {
-  max-width: 560px;
-  margin-top: 10px;
+  max-width: 520px;
+  margin-top: 20px;
+  font-size: 17px;
   color: var(--color-muted);
 }
 
 .home__tabs {
+  position: sticky;
+  top: 84px;
+  z-index: 5;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 40px;
+  width: fit-content;
+  margin-bottom: 48px;
+  padding: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
 }
 
 .home__tab {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  border: 1px solid var(--color-border);
+  padding: 8px 18px;
   border-radius: 999px;
-  background: var(--color-surface);
-  font-weight: 500;
-  transition: border-color 0.15s;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .home__tab:hover {
-  border-color: var(--color-accent);
+  background: var(--color-surface-raised);
 }
 
 .home__tab-count {
-  font-size: 13px;
-  color: var(--color-muted);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 </style>

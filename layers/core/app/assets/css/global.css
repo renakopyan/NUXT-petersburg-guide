@@ -1,25 +1,39 @@
-@import '_fonts.css';
+/*
+ * «Ночной Петербург»: глубокий синий, как небо над Невой,
+ * и тёплый янтарь, как свет фонарей на набережной.
+ * Шрифты подключаются в layers/core/nuxt.config.ts.
+ */
 
 :root {
   color-scheme: dark;
 
-  --color-bg: #121417;
-  --color-surface: #1b1e23;
-  --color-text: #ecebe8;
-  --color-muted: #9a9ea6;
-  --color-border: #2c3038;
-  --color-accent: #6aa7e0;
-  --color-accent-hover: #8bbcea;
-  --color-accent-soft: rgb(106 167 224 / 0.14);
-  --color-on-accent: #0e1a26;
-  --color-work: #5fcf8c;
-  --color-work-soft: rgb(95 207 140 / 0.14);
-  --color-backdrop: rgb(0 0 0 / 0.65);
+  --font-display: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
 
-  --radius-sm: 8px;
-  --radius: 14px;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 16px rgb(0 0 0 / 0.25);
-  --shadow-hover: 0 2px 4px rgb(0 0 0 / 0.35), 0 12px 32px rgb(0 0 0 / 0.45);
+  --color-bg: #0a0f1d;
+  --color-surface: #111a2e;
+  --color-surface-raised: #17223b;
+  --color-text: #eef1f7;
+  --color-muted: #8f9ab3;
+  --color-border: rgb(255 255 255 / 0.08);
+  --color-border-strong: rgb(255 255 255 / 0.16);
+
+  --color-accent: #f0b35b;
+  --color-accent-hover: #f6c983;
+  --color-accent-soft: rgb(240 179 91 / 0.14);
+  --color-on-accent: #1d1406;
+
+  --color-work: #73d6ab;
+  --color-work-soft: rgb(115 214 171 / 0.14);
+
+  --color-backdrop: rgb(3 6 15 / 0.72);
+  --glass: rgb(10 15 29 / 0.55);
+
+  --radius-sm: 10px;
+  --radius: 20px;
+  --shadow: 0 2px 6px rgb(0 0 0 / 0.35), 0 12px 32px rgb(0 0 0 / 0.35);
+  --shadow-hover: 0 4px 10px rgb(0 0 0 / 0.4), 0 24px 56px rgb(0 0 0 / 0.5);
+  --glow: 0 0 0 1px rgb(240 179 91 / 0.35), 0 12px 40px rgb(240 179 91 / 0.12);
 }
 
 * {
@@ -29,11 +43,24 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-body);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--color-text);
-  background: var(--color-bg);
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgb(240 179 91 / 0.08), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, rgb(80 120 220 / 0.1), transparent 60%),
+    var(--color-bg);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 a {
@@ -54,8 +81,13 @@ img {
   max-width: 100%;
 }
 
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
 .container {
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 24px;
 }

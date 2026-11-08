@@ -2,7 +2,7 @@
 import type { PlaceInput } from '@layers/places/app/types/place'
 import { PLACE_CATEGORIES } from '@layers/places/app/utils/placeCategories'
 
-// Одна форма и для создания, и (позже) для редактирования: передаём initial.
+// Одна форма и для создания, и для редактирования: передаём initial.
 const props = withDefaults(
   defineProps<{
     initial?: PlaceInput
@@ -21,6 +21,7 @@ const form = reactive({
   name: props.initial?.name ?? '',
   description: props.initial?.description ?? '',
   address: props.initial?.address ?? '',
+  coords: props.initial?.coords ? `${props.initial.coords.lat}, ${props.initial.coords.lng}` : '',
   photos: props.initial?.photos.join('\n') ?? '',
   tags: props.initial?.tags.join(', ') ?? '',
   isWorkFriendly: Boolean(props.initial?.workFriendly),
@@ -33,15 +34,34 @@ const form = reactive({
 
 const isCoffee = computed(() => form.category === 'coffee')
 
+/** «59.9343, 30.3351» → { lat, lng }; пустая строка — без координат. */
+function parseCoords(value: string): PlaceInput['coords'] | null {
+  if (!value.trim()) return undefined
+  const parts = value.split(',').map((part) => Number(part.trim()))
+  const [lat, lng] = parts
+  if (parts.length !== 2 || lat === undefined || lng === undefined) return null
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null
+  if (Math.abs(lat) > 90 || Math.abs(lng) > 180) return null
+  return { lat, lng }
+}
+
+const coordsError = computed(() =>
+  parseCoords(form.coords) === null ? 'Формат: широта, долгота — например 59.9343, 30.3351' : '',
+)
+
 const splitList = (value: string, separator: RegExp) =>
   value.split(separator).map((item) => item.trim()).filter(Boolean)
 
 function onSubmit() {
+  const coords = parseCoords(form.coords)
+  if (coords === null) return
+
   emit('submit', {
     category: form.category,
     name: form.name.trim(),
     description: form.description.trim(),
     address: form.address.trim(),
+    coords,
     photos: splitList(form.photos, /\n/),
     tags: splitList(form.tags, /,/),
     workFriendly: isCoffee.value && form.isWorkFriendly ? { ...form.work } : undefined,
@@ -74,6 +94,19 @@ function onSubmit() {
     <label class="form__field">
       <span class="form__label">Адрес</span>
       <input v-model="form.address" class="form__input" placeholder="Улица, дом">
+    </label>
+
+    <label class="form__field">
+      <span class="form__label">Координаты для карты</span>
+      <input
+        v-model="form.coords"
+        class="form__input"
+        :class="{ 'form__input--error': coordsError }"
+        inputmode="decimal"
+        placeholder="59.9343, 30.3351"
+      >
+      <span v-if="coordsError" class="form__error">{{ coordsError }}</span>
+      <span v-else class="form__hint">В Яндекс или Google Картах: правый клик по месту → скопировать координаты</span>
     </label>
 
     <label class="form__field">
@@ -150,6 +183,20 @@ function onSubmit() {
   opacity: 0.7;
 }
 
+.form__input--error {
+  border-color: #e26a6a;
+}
+
+.form__hint,
+.form__error {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.form__error {
+  color: #e26a6a;
+}
+
 .form__textarea {
   resize: vertical;
 }
@@ -161,8 +208,8 @@ function onSubmit() {
 }
 
 .form__category {
-  padding: 8px 14px;
-  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+  border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   font-size: 14px;
   font-weight: 500;
@@ -172,8 +219,8 @@ function onSubmit() {
 
 .form__category--active {
   border-color: var(--color-accent);
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
 }
 
 .form__category:has(input:focus-visible) {

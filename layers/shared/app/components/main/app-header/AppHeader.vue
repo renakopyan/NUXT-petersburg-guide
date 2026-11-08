@@ -1,7 +1,6 @@
 <script setup lang="ts">
 const links = [
   { to: '/', label: 'Главная' },
-  { to: '/map', label: 'Карта' },
 ]
 </script>
 
@@ -32,8 +31,8 @@ const links = [
   position: sticky;
   top: 0;
   z-index: 10;
-  background: color-mix(in srgb, var(--color-bg) 85%, transparent);
-  backdrop-filter: blur(8px);
+  background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -41,29 +40,46 @@ const links = [
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: 72px;
 }
 
 .header__logo {
-  font-weight: 700;
-  font-size: 18px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 0.01em;
 }
 
 .header__city {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--color-accent);
 }
 
 .header__nav {
   display: flex;
   gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background: var(--glass);
 }
 
 .header__link {
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  font-weight: 500;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
   color: var(--color-muted);
-  transition: color 0.15s, background-color 0.15s;
+  transition: color 0.2s, background-color 0.2s;
 }
 
 .header__link:hover {
@@ -71,7 +87,7 @@ const links = [
 }
 
 .header__link--active {
-  color: var(--color-accent);
-  background: var(--color-accent-soft);
+  color: var(--color-on-accent);
+  background: var(--color-accent);
 }
 </style>

@@ -5,12 +5,13 @@
 <style scoped>
 .tag {
   display: inline-block;
-  padding: 2px 10px;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
+  background: var(--glass);
+  border: 1px solid var(--color-border-strong);
+  backdrop-filter: blur(6px);
   font-size: 12px;
-  font-weight: 500;
-  color: var(--color-muted);
+  font-weight: 600;
+  color: var(--color-text);
 }
 </style>

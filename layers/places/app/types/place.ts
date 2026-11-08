@@ -32,5 +32,8 @@ export interface Place {
 /** Данные, которые заполняет пользователь в форме. */
 export type PlaceInput = Pick<
   Place,
-  'category' | 'name' | 'description' | 'address' | 'photos' | 'tags' | 'workFriendly'
+  'category' | 'name' | 'description' | 'address' | 'coords' | 'photos' | 'tags' | 'workFriendly'
 >
+
+/** Данные нового комментария. */
+export type PlaceCommentInput = Pick<PlaceComment, 'author' | 'text'>

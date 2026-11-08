@@ -14,7 +14,15 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'ru' },
       titleTemplate: '%s · Топ заведений СПб',
-      meta: [{ name: 'theme-color', content: '#121417' }],
+      meta: [{ name: 'theme-color', content: '#0a0f1d' }],
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap',
+        },
+      ],
     },
   },
 })
