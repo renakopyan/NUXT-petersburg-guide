@@ -1,6 +1,5 @@
 export type PlaceCategory = 'coffee' | 'restaurant' | 'bar'
 
-/** Фишка приложения: можно ли посидеть поработать (только для кофеен). */
 export interface WorkFriendly {
   wifi: boolean
   sockets: boolean
@@ -29,11 +28,9 @@ export interface Place {
   updatedAt: string
 }
 
-/** Данные, которые заполняет пользователь в форме. */
 export type PlaceInput = Pick<
   Place,
   'category' | 'name' | 'description' | 'address' | 'coords' | 'photos' | 'tags' | 'workFriendly'
 >
 
-/** Данные нового комментария. */
 export type PlaceCommentInput = Pick<PlaceComment, 'author' | 'text'>
