@@ -19,7 +19,7 @@ watch(() => props.photos.length, (length) => {
 <template>
   <div class="gallery">
     <div class="gallery__main">
-      <PlaceCover :category="category" :src="active" :alt="alt" />
+      <PlacesCover :category="category" :src="active" :alt="alt" />
     </div>
 
     <div v-if="photos.length > 1" class="gallery__thumbs">

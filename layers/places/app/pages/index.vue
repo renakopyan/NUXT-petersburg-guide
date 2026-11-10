@@ -35,14 +35,14 @@ const sections = computed(() =>
       </a>
     </nav>
 
-    <PlaceSection
+    <PlacesSection
       v-for="section in sections"
       :key="section.category.value"
       :category="section.category"
       :places="section.places"
     />
 
-    <PlaceCreateModal v-model="isCreateOpen" />
+    <PlacesCreateModal v-model="isCreateOpen" />
   </div>
 </template>
 

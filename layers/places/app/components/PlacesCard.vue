@@ -16,7 +16,7 @@ const workFeatures = computed(() => {
 
 <template>
   <NuxtLink :to="`/places/${place.id}`" class="card" :class="`card--${place.category}`">
-    <PlaceCover :category="place.category" :src="cover" :alt="place.name" class="card__cover" />
+    <PlacesCover :category="place.category" :src="cover" :alt="place.name" class="card__cover" />
 
     <div class="card__shade" aria-hidden="true" />
 

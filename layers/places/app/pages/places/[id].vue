@@ -49,7 +49,7 @@ function onComment(input: PlaceCommentInput) {
     <NuxtLink to="/" class="place__back">← Все места</NuxtLink>
 
     <div class="place__hero">
-      <PlaceGallery :photos="place.photos" :category="place.category" :alt="place.name" />
+      <PlacesGallery :photos="place.photos" :category="place.category" :alt="place.name" />
 
       <div class="place__info">
         <p class="place__eyebrow">{{ category?.emoji }} {{ category?.single }}</p>
@@ -82,10 +82,10 @@ function onComment(input: PlaceCommentInput) {
       </div>
     </div>
 
-    <PlaceComments :comments="place.comments" class="place__comments" @add="onComment" />
+    <PlacesComments :comments="place.comments" class="place__comments" @add="onComment" />
 
     <AppModal v-model="isEditOpen" title="Редактирование">
-      <PlaceForm :initial="formInitial" submit-label="Сохранить" @submit="onSave" @cancel="isEditOpen = false" />
+      <PlacesForm :initial="formInitial" submit-label="Сохранить" @submit="onSave" @cancel="isEditOpen = false" />
     </AppModal>
   </div>
 </template>

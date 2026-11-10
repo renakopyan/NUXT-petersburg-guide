@@ -15,6 +15,6 @@ function onSubmit(input: PlaceInput) {
 
 <template>
   <AppModal v-model="open" title="Новое заведение">
-    <PlaceForm submit-label="Добавить" @submit="onSubmit" @cancel="open = false" />
+    <PlacesForm submit-label="Добавить" @submit="onSubmit" @cancel="open = false" />
   </AppModal>
 </template>

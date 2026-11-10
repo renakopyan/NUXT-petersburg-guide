@@ -31,7 +31,7 @@ const visiblePlaces = computed(() =>
     </header>
 
     <div v-if="visiblePlaces.length" class="section__grid">
-      <PlaceCard v-for="place in visiblePlaces" :key="place.id" :place="place" />
+      <PlacesCard v-for="place in visiblePlaces" :key="place.id" :place="place" />
     </div>
 
     <p v-else class="section__empty">
