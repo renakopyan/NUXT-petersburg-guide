@@ -1,75 +1,35 @@
-# Nuxt Minimal Starter
+# Топ заведений Санкт-Петербурга
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Nuxt 4 + TypeScript, архитектура на Nuxt Layers.
 
-## Setup
+## Структура
 
-Make sure to install dependencies:
+```
+app/                  корневое приложение: только app.vue
+layers/
+  core/               базовый слой: стили, шрифты, плагины, мета
+  shared/             layout, шапка, общий UI (App*), composables, утилиты
+  places/             домен «Заведения»: главная (/), страницы /places/*, компоненты, server/api
+```
+
+## Правила
+
+- Код слоя лежит в `layers/<name>/app/` (pages, components, composables, assets),
+  серверный код — в `layers/<name>/server/`.
+  Только эти папки попадают в tsconfig, который генерирует Nuxt 4.
+- Зависимости идут в одну сторону: `places → shared → core`. Слой не импортирует
+  то, что выше него.
+- Приоритет слоёв задаётся в корневом `nuxt.config.ts` (`extends`, первый — главный).
+  Новый слой нужно добавить туда же.
+- Между слоями импортируем через алиасы: `@layers/core/...`, `@layers/places/app/...` (алиас из корневого nuxt.config.ts).
+- В `shared` у каждого компонента своя папка, имя файла совпадает с именем компонента:
+  `ui/app-button/AppButton.vue` → `<AppButton>` (`pathPrefix: false`).
+
+## Запуск
 
 ```bash
-# npm
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
+npm run dev      # http://localhost:3000
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
